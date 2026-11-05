@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AETHERIA — Studio Digital & Web 3D Interaktif Masa Depan</title>
+  <meta name="description" content="Website 3D profesional dan interaktif yang dibangun dengan teknologi HTML5, CSS3, dan Three.js modern.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="cyan">
+
+  <!-- WebGL 3D Background Canvas -->
+  <canvas id="webgl-canvas"></canvas>
+
+  <!-- Custom Glowing Cursor -->
+  <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="cursor-outline" id="cursor-outline"></div>
+
+  <!-- Preloader Screen -->
+  <div id="preloader" class="preloader">
+    <div class="loader-content">
+      <div class="loader-cube">
+        <div class="cube-face front"></div>
+        <div class="cube-face back"></div>
+        <div class="cube-face right"></div>
+        <div class="cube-face left"></div>
+        <div class="cube-face top"></div>
+        <div class="cube-face bottom"></div>
+      </div>
+      <div class="loader-brand">AETHERIA<span>.3D</span></div>
+      <div class="loader-bar-wrapper">
+        <div class="loader-bar" id="loader-bar"></div>
+      </div>
+      <div class="loader-status" id="loader-status">MEMUAT SISTEM WEBGL...</div>
+    </div>
+  </div>
+
+  <!-- Ambient Sound & Audio FX Toggle -->
+  <div class="sound-toggle-wrapper">
+    <button id="sound-btn" class="glass-pill-btn sound-btn" title="Toggle Efek Suara Audio Web" aria-label="Toggle Audio">
+      <i class="fa-solid fa-volume-xmark" id="sound-icon"></i>
+      <span id="sound-text">Audio FX: Mati</span>
+    </button>
+  </div>
+
+  <!-- Theme Color Selector Pill -->
+  <div class="theme-switcher">
+    <span class="theme-label">AURA</span>
+    <button class="theme-dot active" data-color="cyan" title="Cyber Cyan" style="--c: #00f0ff;"></button>
+    <button class="theme-dot" data-color="purple" title="Neon Violet" style="--c: #b800ff;"></button>
+    <button class="theme-dot" data-color="emerald" title="Matrix Emerald" style="--c: #00ff88;"></button>
+    <button class="theme-dot" data-color="amber" title="Solar Amber" style="--c: #ffb703;"></button>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="logo">
+        <div class="logo-icon-wrap">
+          <div class="logo-core"></div>
+          <div class="logo-orbit"></div>
+        </div>
+        <span class="logo-text">AETHERIA<span class="highlight">.3D</span></span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#hero" class="nav-link active">Beranda</a>
+        <a href="#about" class="nav-link">Tentang</a>
+        <a href="#interactive-lab" class="nav-link">Lab 3D</a>
+        <a href="#services" class="nav-link">Layanan</a>
+        <a href="#portfolio" class="nav-link">Portofolio</a>
+        <a href="#contact" class="nav-link">Kontak</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="#contact" class="btn btn-glass btn-glow">
+          <span>Mulai Proyek</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Buka Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-header">
+      <span class="logo-text">AETHERIA<span>.3D</span></span>
+      <button class="mobile-close" id="mobile-close"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="mobile-links">
+      <a href="#hero" class="mobile-link">Beranda</a>
+      <a href="#about" class="mobile-link">Tentang</a>
+      <a href="#interactive-lab" class="mobile-link">Lab 3D</a>
+      <a href="#services" class="mobile-link">Layanan</a>
+      <a href="#portfolio" class="mobile-link">Portofolio</a>
+      <a href="#contact" class="mobile-link">Kontak</a>
+    </div>
+    <div class="mobile-cta">
+      <a href="#contact" class="btn btn-primary w-full">Mulai Proyek</a>
+    </div>
+  </div>
+
+  <!-- Main Website Content -->
+  <main>
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero-section">
+      <div class="container hero-container">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="pulse-dot"></span>
+            <span>NEXT-GEN SPATIAL & 3D WEBGL STUDIO</span>
+          </div>
+
+          <h1 class="hero-title">
+            Menciptakan <br>
+            <span class="gradient-text text-glitch" data-text="Realitas 3D">Realitas 3D</span> <br>
+            Di Dalam Browser.
+          </h1>
+
+          <p class="hero-description">
+            Kami mengubah batas desain web konvensional menjadi dimensi spasial interaktif. 
+            Didukung performa tinggi WebGL, shader dinamis, dan pengalaman visual tanpa kompromi.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#interactive-lab" class="btn btn-primary btn-glow">
+              <i class="fa-solid fa-cube"></i>
+              <span>Coba Playground 3D</span>
+            </a>
+            <a href="#portfolio" class="btn btn-glass">
+              <i class="fa-solid fa-play"></i>
+              <span>Lihat Portofolio</span>
+            </a>
+          </div>
+
+          <!-- Hero Metrics -->
+          <div class="hero-stats">
+            <div class="stat-card">
+              <div class="stat-number" data-target="60">0</div>
+              <div class="stat-suffix">FPS</div>
+              <div class="stat-label">Ultra Smooth WebGL</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-card">
+              <div class="stat-number" data-target="99">0</div>
+              <div class="stat-suffix">%</div>
+              <div class="stat-label">Device Optimization</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-card">
+              <div class="stat-number" data-target="45">0</div>
+              <div class="stat-suffix">+</div>
+              <div class="stat-label">Proyek Spasial Global</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D Scene Interactive Overlay Panel -->
+        <div class="scene-controller-hud glass-panel">
+          <div class="hud-header">
+            <div class="hud-indicator"></div>
+            <span class="hud-title">KONTROL KAMERA 3D</span>
+          </div>
+          <p class="hud-tip">
+            <i class="fa-solid fa-computer-mouse"></i> Gerakkan kursor atau seret untuk merotasi ruang 3D secara langsung.
+          </p>
+          <div class="hud-controls">
+            <button id="btn-wireframe" class="hud-btn" title="Toggle Wireframe">
+              <i class="fa-solid fa-border-none"></i>
+              <span>Wireframe</span>
+            </button>
+            <button id="btn-explode" class="hud-btn" title="Efek Dispersi Partikel">
+              <i class="fa-solid fa-atom"></i>
+              <span>Dispersi</span>
+            </button>
+            <button id="btn-reset-cam" class="hud-btn" title="Reset Posisi Kamera">
+              <i class="fa-solid fa-rotate-left"></i>
+              <span>Reset</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <a href="#about" class="scroll-indicator" aria-label="Scroll ke Bawah">
+        <span class="mouse-icon">
+          <span class="wheel"></span>
+        </span>
+        <span class="scroll-text">GULIR KE BAWAH</span>
+      </a>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="section about-section">
+      <div class="container">
+        <div class="section-tag">
+          <i class="fa-solid fa-layer-group"></i>
+          <span>ARSITEKTUR KAMI</span>
+        </div>
+        <h2 class="section-title">
+          Bukan Sekadar Tampilan Website Biasa,<br>
+          <span class="gradient-text">Ini Adalah Pengalaman Spasial Imersif</span>
+        </h2>
+        <p class="section-subtitle">
+          Menggabungkan matematika komputasi grafis dengan estetika desain futuristik untuk membawa audiens Anda merasakan kedalaman visual yang memukau.
+        </p>
+
+        <div class="features-grid">
+          <!-- Card 1 -->
+          <div class="tilt-card glass-panel" data-tilt>
+            <div class="card-glow"></div>
+            <div class="card-icon">
+              <i class="fa-solid fa-cubes"></i>
+            </div>
+            <h3 class="card-title">Real-Time WebGL Rendering</h3>
+            <p class="card-desc">
+              Dioptimalkan langsung pada GPU peramban klien tanpa beban server berlebih, menjamin performa responsif 60-120 FPS di desktop maupun ponsel pintar.
+            </p>
+            <div class="card-tech">
+              <span>Three.js</span>
+              <span>WebGL 2.0</span>
+              <span>GLSL Shaders</span>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="tilt-card glass-panel" data-tilt>
+            <div class="card-glow"></div>
+            <div class="card-icon">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </div>
+            <h3 class="card-title">Fisika Partikel & Interaksi</h3>
+            <p class="card-desc">
+              Ribuan partikel dinamis yang merespons gravitasi kursor pengguna, menciptakan keterlibatan visual interaktif yang membuat audiens betah berlama-lama.
+            </p>
+            <div class="card-tech">
+              <span>Particle Physics</span>
+              <span>Raycasting</span>
+              <span>Vector Math</span>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="tilt-card glass-panel" data-tilt>
+            <div class="card-glow"></div>
+            <div class="card-icon">
+              <i class="fa-solid fa-bolt-lightning"></i>
+            </div>
+            <h3 class="card-title">Arsitektur Ringan & Responsif</h3>
+            <p class="card-desc">
+              Dibuat murni dengan HTML, CSS modern (Glassmorphism & CSS Grid), dan JavaScript modular tanpa ketergantungan framework berat.
+            </p>
+            <div class="card-tech">
+              <span>Pure Vanilla JS</span>
+              <span>Zero Bloat</span>
+              <span>SEO Optimized</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE 3D LAB / SHOWCASE -->
+    <section id="interactive-lab" class="section lab-section">
+      <div class="container">
+        <div class="section-tag">
+          <i class="fa-solid fa-flask"></i>
+          <span>LABORATORIUM 3D INTERAKTIF</span>
+        </div>
+        <h2 class="section-title">
+          Eksperimen Morfologi <span class="gradient-text">Objek Spasial</span>
+        </h2>
+        <p class="section-subtitle">
+          Ubah bentuk geometri 3D di tengah layar secara langsung. Klik tombol di bawah untuk melihat transformasi matematis real-time!
+        </p>
+
+        <!-- Lab Interface Deck -->
+        <div class="lab-dashboard glass-panel">
+          <div class="lab-controls-group">
+            <span class="lab-label">PILIH MODEL GEOMETRI:</span>
+            <div class="shape-buttons">
+              <button class="shape-btn active" data-shape="torusknot">
+                <i class="fa-solid fa-ring"></i>
+                <span>Quantum Knot</span>
+              </button>
+              <button class="shape-btn" data-shape="icosahedron">
+                <i class="fa-solid fa-gem"></i>
+                <span>Cyber Crystal</span>
+              </button>
+              <button class="shape-btn" data-shape="sphere">
+                <i class="fa-solid fa-globe"></i>
+                <span>Neural Sphere</span>
+              </button>
+              <button class="shape-btn" data-shape="torus">
+                <i class="fa-solid fa-circle-notch"></i>
+                <span>Singularity Ring</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="lab-sliders-row">
+            <div class="slider-control">
+              <div class="slider-header">
+                <label for="speed-range">Kecepatan Rotasi</label>
+                <span id="speed-val">1.0x</span>
+              </div>
+              <input type="range" id="speed-range" min="0" max="3" step="0.1" value="1.0">
+            </div>
+
+            <div class="slider-control">
+              <div class="slider-header">
+                <label for="scale-range">Dimensi Skala</label>
+                <span id="scale-val">1.0x</span>
+              </div>
+              <input type="range" id="scale-range" min="0.6" max="1.6" step="0.1" value="1.0">
+            </div>
+
+            <div class="slider-control">
+              <div class="slider-header">
+                <label for="particle-range">Intensitas Aura</label>
+                <span id="particle-val">Tinggi</span>
+              </div>
+              <input type="range" id="particle-range" min="1" max="3" step="1" value="3">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="services" class="section services-section">
+      <div class="container">
+        <div class="section-tag">
+          <i class="fa-solid fa-briefcase"></i>
+          <span>LAYANAN SPESIALIS KAMI</span>
+        </div>
+        <h2 class="section-title">
+          Solusi Digital <span class="gradient-text">Kelas Elit</span>
+        </h2>
+        <p class="section-subtitle">
+          Kami membantu jenama visioner menciptakan situs web yang memenangkan penghargaan, konfigurator produk 3D, dan identitas visual tak terlupakan.
+        </p>
+
+        <div class="services-list">
+          <div class="service-row glass-panel" data-tilt>
+            <div class="service-idx">01</div>
+            <div class="service-body">
+              <h3 class="service-name">Situs Web 3D & WebGL Showroom</h3>
+              <p class="service-desc">
+                Landing page interaktif imersif dengan rendering objek 3D real-time, efek pencahayaan dinamis, dan animasi berbasis scroll (Scroll-Driven 3D Motion).
+              </p>
+            </div>
+            <div class="service-tags">
+              <span>Three.js</span>
+              <span>Awwwards Standard</span>
+              <span>High Conversion</span>
+            </div>
+            <div class="service-arrow">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </div>
+          </div>
+
+          <div class="service-row glass-panel" data-tilt>
+            <div class="service-idx">02</div>
+            <div class="service-body">
+              <h3 class="service-name">3D Product Configurator & E-Commerce</h3>
+              <p class="service-desc">
+                Izinkan calon pelanggan Anda memutar, menginspeksi dari 360 derajat, mengustomisasi warna, bahan, dan tekstur produk Anda langsung dari browser.
+              </p>
+            </div>
+            <div class="service-tags">
+              <span>Interactive 360°</span>
+              <span>Material Swapping</span>
+              <span>AR Ready</span>
+            </div>
+            <div class="service-arrow">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </div>
+          </div>
+
+          <div class="service-row glass-panel" data-tilt>
+            <div class="service-idx">03</div>
+            <div class="service-body">
+              <h3 class="service-name">UI/UX Spasial & Glassmorphism Eksklusif</h3>
+              <p class="service-desc">
+                Tata letak ultra-modern dengan efek kedalaman optik, kartu miring 3D responsif mouse, tipografi kinetik, dan palet warna cyber-luxe berkelas.
+              </p>
+            </div>
+            <div class="service-tags">
+              <span>Dark Theme Luxury</span>
+              <span>Micro-Interactions</span>
+              <span>Design System</span>
+            </div>
+            <div class="service-arrow">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </div>
+          </div>
+
+          <div class="service-row glass-panel" data-tilt>
+            <div class="service-idx">04</div>
+            <div class="service-body">
+              <h3 class="service-name">Optimasi Performa & Web Audio Synthesis</h3>
+              <p class="service-desc">
+                Desain audio sintetis berbasis Web Audio API tanpa file audio berat, kompresi aset geometri, dan optimalisasi pipeline rendering hingga 120 FPS.
+              </p>
+            </div>
+            <div class="service-tags">
+              <span>Web Audio API</span>
+              <span>Shader Caching</span>
+              <span>Lighthouse 95+</span>
+            </div>
+            <div class="service-arrow">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO SECTION -->
+    <section id="portfolio" class="section portfolio-section">
+      <div class="container">
+        <div class="section-tag">
+          <i class="fa-solid fa-trophy"></i>
+          <span>KARYA TERPILIH</span>
+        </div>
+        <h2 class="section-title">
+          Galeri <span class="gradient-text">Eksplorasi Proyek</span>
+        </h2>
+        <p class="section-subtitle">
+          Beberapa mahakarya visual spasial yang kami kembangkan dengan ketelitian matematis dan keanggunan desain.
+        </p>
+
+        <div class="portfolio-grid">
+          <!-- Portfolio 1 -->
+          <div class="portfolio-card glass-panel" data-tilt>
+            <div class="portfolio-visual project-1">
+              <div class="project-overlay">
+                <span class="project-badge">3D Virtual Space</span>
+                <button class="project-preview-btn"><i class="fa-solid fa-eye"></i> Pratinjau 3D</button>
+              </div>
+              <div class="project-art art-core"></div>
+            </div>
+            <div class="portfolio-info">
+              <div class="portfolio-category">Spatial Architecture</div>
+              <h3 class="portfolio-title">AURA Hyper-Dimensional Hub</h3>
+              <p class="portfolio-desc">Eksplorasi arsitektur perumahan virtual dengan navigasi 3D dan simulasi tata cahaya fotorealistik.</p>
+              <div class="portfolio-meta">
+                <span>Three.js</span>
+                <span>PBR Shaders</span>
+                <span>Spatial Audio</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Portfolio 2 -->
+          <div class="portfolio-card glass-panel" data-tilt>
+            <div class="portfolio-visual project-2">
+              <div class="project-overlay">
+                <span class="project-badge">Automotive 3D</span>
+                <button class="project-preview-btn"><i class="fa-solid fa-eye"></i> Pratinjau 3D</button>
+              </div>
+              <div class="project-art art-hypercar"></div>
+            </div>
+            <div class="portfolio-info">
+              <div class="portfolio-category">Industrial & Automotive</div>
+              <h3 class="portfolio-title">Spectre EV 360 Configurator</h3>
+              <p class="portfolio-desc">Konfigurator hypercar elektrik real-time dengan kustomisasi material serat karbon dan roda aerodinamis.</p>
+              <div class="portfolio-meta">
+                <span>WebGL</span>
+                <span>Raytracing Sim</span>
+                <span>Interactive UI</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Portfolio 3 -->
+          <div class="portfolio-card glass-panel" data-tilt>
+            <div class="portfolio-visual project-3">
+              <div class="project-overlay">
+                <span class="project-badge">Fintech Spasial</span>
+                <button class="project-preview-btn"><i class="fa-solid fa-eye"></i> Pratinjau 3D</button>
+              </div>
+              <div class="project-art art-crypto"></div>
+            </div>
+            <div class="portfolio-info">
+              <div class="portfolio-category">Crypto & Web3</div>
+              <h3 class="portfolio-title">Chronos Blockchain Visualizer</h3>
+              <p class="portfolio-desc">Visualisasi transaksi jaringan terdesentralisasi secara 3D dengan visual topologi bola partikel dinamis.</p>
+              <div class="portfolio-meta">
+                <span>Data Viz</span>
+                <span>WebSocket</span>
+                <span>InstancedMesh</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS & STATS -->
+    <section class="section metrics-section">
+      <div class="container">
+        <div class="quote-box glass-panel">
+          <i class="fa-solid fa-quote-left quote-icon"></i>
+          <p class="quote-text">
+            "Kolaborasi kami dengan AETHERIA membawa konversi peluncuran produk kami melonjak 340%. Pengunjung tidak hanya melihat produk kami, mereka benar-benar berinteraksi di dalam dunia 3D yang magis."
+          </p>
+          <div class="quote-author">
+            <div class="author-avatar">
+              <i class="fa-solid fa-user-astronaut"></i>
+            </div>
+            <div class="author-info">
+              <div class="author-name">David S. Wirawan</div>
+              <div class="author-role">Chief Product Officer — Apex Dynamics Global</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="section contact-section">
+      <div class="container">
+        <div class="contact-wrapper glass-panel">
+          <div class="contact-info">
+            <div class="section-tag">
+              <i class="fa-solid fa-envelope"></i>
+              <span>MULAI PERJALANAN ANDA</span>
+            </div>
+            <h2 class="contact-heading">
+              Siap Menembus <br>
+              <span class="gradient-text">Dimensi Baru?</span>
+            </h2>
+            <p class="contact-desc">
+              Punya ide proyek revolusioner, produk yang butuh pameran 3D, atau ingin memperbarui identitas digital perusahaan Anda? Mari berdiskusi.
+            </p>
+
+            <div class="contact-details">
+              <div class="contact-item">
+                <div class="contact-item-icon">
+                  <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div>
+                  <div class="item-label">Studio Kami</div>
+                  <div class="item-val">SCBD Sudirman District, Jakarta & Remote Global</div>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-item-icon">
+                  <i class="fa-solid fa-at"></i>
+                </div>
+                <div>
+                  <div class="item-label">Email Konsultasi</div>
+                  <div class="item-val">hello@aetheria3d.studio</div>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-item-icon">
+                  <i class="fa-solid fa-satellite-dish"></i>
+                </div>
+                <div>
+                  <div class="item-label">Status Server WebGL</div>
+                  <div class="item-val status-live"><span class="dot"></span> Online & Siap Kolaborasi</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Social links -->
+            <div class="social-links">
+              <a href="#" class="social-btn" aria-label="Github"><i class="fa-brands fa-github"></i></a>
+              <a href="#" class="social-btn" aria-label="Twitter / X"><i class="fa-brands fa-x-twitter"></i></a>
+              <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+              <a href="#" class="social-btn" aria-label="Dribbble"><i class="fa-brands fa-dribbble"></i></a>
+              <a href="#" class="social-btn" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+            </div>
+          </div>
+
+          <!-- Contact Form -->
+          <div class="contact-form-side">
+            <form id="contact-form" class="interactive-form">
+              <div class="form-group">
+                <label for="name">Nama Lengkap / Perusahaan</label>
+                <input type="text" id="name" required placeholder="cth. Alexander Nathan">
+              </div>
+
+              <div class="form-group">
+                <label for="email">Alamat Email Profesional</label>
+                <input type="email" id="email" required placeholder="alexander@company.com">
+              </div>
+
+              <div class="form-group">
+                <label for="service-select">Kategori Kebutuhan Proyek</label>
+                <select id="service-select" required>
+                  <option value="" disabled selected>Pilih Kategori Layanan...</option>
+                  <option value="3d-web">Website 3D & WebGL Showroom</option>
+                  <option value="configurator">3D Product Configurator</option>
+                  <option value="spatial-ui">UI/UX Spasial & Branding</option>
+                  <option value="custom">Eksperimen Interaktif Khusus</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="message">Ringkasan Visi Proyek</label>
+                <textarea id="message" rows="4" required placeholder="Ceritakan ide, estimasi timeline, atau fitur 3D yang ingin Anda hadirkan..."></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-glow w-full submit-btn" id="submit-btn">
+                <span>Kirim Pesan Spasial</span>
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+
+              <div id="form-feedback" class="form-feedback"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="logo">
+            <div class="logo-icon-wrap">
+              <div class="logo-core"></div>
+            </div>
+            <span class="logo-text">AETHERIA<span>.3D</span></span>
+          </div>
+          <p class="footer-tagline">
+            Membangun generasi baru web interaktif tiga dimensi dengan standar visual kelas dunia.
+          </p>
+        </div>
+
+        <div class="footer-nav-col">
+          <div class="col-title">Navigasi</div>
+          <a href="#hero">Beranda</a>
+          <a href="#about">Tentang</a>
+          <a href="#interactive-lab">Lab 3D</a>
+          <a href="#services">Layanan</a>
+          <a href="#portfolio">Portofolio</a>
+        </div>
+
+        <div class="footer-nav-col">
+          <div class="col-title">Teknologi</div>
+          <a href="#">Three.js r128</a>
+          <a href="#">WebGL Shaders</a>
+          <a href="#">Web Audio API</a>
+          <a href="#">CSS3 Spatial Grid</a>
+        </div>
+
+        <div class="footer-nav-col">
+          <div class="col-title">Status Sistem</div>
+          <div class="system-status-box">
+            <div class="status-row">
+              <span>Engine:</span>
+              <span class="val">Three.js WebGL</span>
+            </div>
+            <div class="status-row">
+              <span>Pipeline:</span>
+              <span class="val highlight">60 FPS Hardware Accel</span>
+            </div>
+            <div class="status-row">
+              <span>Audio Synthesis:</span>
+              <span class="val" id="audio-status-label">Standby</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 AETHERIA Spatial Studio. Hak Cipta Dilindungi Undang-Undang.</p>
+        <div class="footer-credits">
+          <span>Dibuat dengan presisi tinggi menggunakan HTML, CSS, dan JavaScript</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Main 3D & UI Interaction Script -->
+  <script src="script.js"></script>
+</body>
+</html>
